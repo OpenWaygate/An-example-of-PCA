@@ -7,7 +7,6 @@ function g = sigmoidGradient(z)
 %   the gradient for each element.
 
 g = zeros(size(z));
-
-	g = sigmoid(z).*(1 - sigmoid(z));
+g = sigmoid(z).*(1 - sigmoid(z));
 
 end
