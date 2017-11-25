@@ -17,6 +17,4 @@ W = zeros(fan_out, 1 + fan_in);
 % values and will be useful for debugging
 W = reshape(sin(1:numel(W)), size(W)) / 10;
 
-% =========================================================================
-
 end
