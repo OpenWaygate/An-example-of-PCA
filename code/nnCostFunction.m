@@ -30,10 +30,6 @@ J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: You should complete the code by working through the
-%               following parts.
-%
 % Part 1: Feedforward the neural network and return the cost in the
 %         variable J. After implementing Part 1, you can verify that your
 %         cost function computation is correct by verifying the cost
@@ -50,16 +46,7 @@ Theta2_grad = zeros(size(Theta2));
 %               binary vector of 1's and 0's to be used with the neural network
 %               cost function.
 %
-%         Hint: We recommend implementing backpropagation using a for-loop
-%               over the training examples if you are implementing it for the 
-%               first time.
-%
 % Part 3: Implement regularization with the cost function and gradients.
-%
-%         Hint: You can implement this around the code for
-%               backpropagation. That is, you can compute the gradients for
-%               the regularization separately and then add them to Theta1_grad
-%               and Theta2_grad from Part 2.
 %
 
 	X = [ones(m, 1) X];						%size: 5000*401
@@ -86,10 +73,6 @@ Theta2_grad = zeros(size(Theta2));
 
 	Theta2_grad = Delta2/m + lambda*[zeros(num_labels, 1) Theta2(:, 2:end)]/m;
 	Theta1_grad = Delta1/m + lambda*[zeros(hidden_layer_size, 1) Theta1(:, 2:end)]/m;
-
-% -------------------------------------------------------------
-
-% =========================================================================
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
