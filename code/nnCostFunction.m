@@ -24,8 +24,7 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 
 % Setup some useful variables
 m = size(X, 1);
-         
-% You need to return the following variables correctly 
+
 J = 0;
 Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
@@ -49,33 +48,32 @@ Theta2_grad = zeros(size(Theta2));
 % Part 3: Implement regularization with the cost function and gradients.
 %
 
-	X = [ones(m, 1) X];						%size: 5000*401
-	a2 = sigmoid(Theta1*X');                %size: 25*5000
+X = [ones(m, 1) X];						%size: 5000*401
+a2 = sigmoid(Theta1*X');                %size: 25*5000
 
-	a2 = [ones(1, m); a2];                  %size: 26*5000
-	a3 = sigmoid(Theta2*a2);                %size: 10*5000
+a2 = [ones(1, m); a2];                  %size: 26*5000
+a3 = sigmoid(Theta2*a2);                %size: 10*5000
 
-	y01 = zeros(num_labels, m);
-	for j  = 1:m 							%binary y01
-		y01(y(j), j) = 1;    
-	end
+y01 = zeros(num_labels, m);
+for j  = 1:m 							%binary y01
+	y01(y(j), j) = 1;    
+end
 
-	J = -1/m*(y01(:)'*log(a3(:)) + (1 - y01(:)')*log(1 - a3(:))) + lambda/(2*m)*...
-		(Theta1(hidden_layer_size + 1:end)*Theta1(hidden_layer_size + 1:end)' + ...
-		 Theta2(num_labels + 1:end)*Theta2(num_labels + 1:end)');
+J = -1/m*(y01(:)'*log(a3(:)) + (1 - y01(:)')*log(1 - a3(:))) + lambda/(2*m)*...
+	(Theta1(hidden_layer_size + 1:end)*Theta1(hidden_layer_size + 1:end)' + ...
+	 Theta2(num_labels + 1:end)*Theta2(num_labels + 1:end)');
 
-	delta3 = a3 - y01;                      %size: 10*5000
-	delta2 = Theta2(:, 2:end)'*delta3.*a2(2:end, :).*(1-a2(2:end, :));    
+delta3 = a3 - y01;                      %size: 10*5000
+delta2 = Theta2(:, 2:end)'*delta3.*a2(2:end, :).*(1-a2(2:end, :));    
 											%size: 25*5000
 
-	Delta2 = delta3*a2';                    %size: 10*26
-	Delta1 = delta2*X;                      %size: 25*401
+Delta2 = delta3*a2';                    %size: 10*26
+Delta1 = delta2*X;                      %size: 25*401
 
-	Theta2_grad = Delta2/m + lambda*[zeros(num_labels, 1) Theta2(:, 2:end)]/m;
-	Theta1_grad = Delta1/m + lambda*[zeros(hidden_layer_size, 1) Theta1(:, 2:end)]/m;
+Theta2_grad = Delta2/m + lambda*[zeros(num_labels, 1) Theta2(:, 2:end)]/m;
+Theta1_grad = Delta1/m + lambda*[zeros(hidden_layer_size, 1) Theta1(:, 2:end)]/m;
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
 
 end
